@@ -1,6 +1,8 @@
 body {
     font-size: 1.2rem;
     font-family: monospace;
+    background-image: url(../img/bg.jpg);
+    background-size: 100%;
 }
 .main__wrapper {
     position: absolute;
@@ -29,7 +31,14 @@ body {
     margin-bottom:10px;
 }
 .navigation__item:hover {
-
+    background-color: #6b859a
+}
+.navigation-active {
+    margin-bottom: 0;
+    transition-duration: 200ms;
+}
+.navigation-active.navigation-active:hover {
+    background-color: #a3c9e8;
 }
 .main__table {
     background-color: #a3c9e8;
