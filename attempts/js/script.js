@@ -1,0 +1,1 @@
+$('.main__table-curent').addClass('main__table-active');
