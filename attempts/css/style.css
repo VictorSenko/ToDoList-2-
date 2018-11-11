@@ -57,15 +57,29 @@ body {
     left: 50%;
     transform: translateX(-50%);
     width: 35vw;
-    height: 35vh;
+    height: 45vh;
     background-color: #d8d8d8;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0,0,0,0.5);
     margin-top:20vh;
+}
+.modal__wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    display: none;
 }
 .open__modal-add {
     float: right;
     position: relative;
     top: -7vh;
     margin-right: 3vw;
+}
+.modal__exit-button {
+    float: right;
+    margin-right: 10px;
+    
 }
