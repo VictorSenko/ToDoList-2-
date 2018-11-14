@@ -1,6 +1,27 @@
 function init() {
     $('.main__table-curent').addClass('main__table-active');
     $('.navigation__curent-task').addClass('navigation-active');
+    actions();
+}
+function modalMuve(e) {
+    if ($(e.target).hasClass('modal__add-task')) {
+        let leftOffset = e.offsetX;
+        let topOffset = e.offsetY;
+        $('body').on('mousemove', function (e) {
+
+            if ($(e.target).hasClass('modal__add-task')) {
+                let x = e.pageX - leftOffset;
+                let y = e.pageY - topOffset;
+
+                $(e.target).css({
+                    'transform': 'translateX(0)',
+                    'left': x + 'px',
+                    'top': y + 'px'
+                });
+            }
+        });
+    }
+
 }
 function actions() {
     //navigation switcher
@@ -19,6 +40,14 @@ function actions() {
             $('.modal__wrapper').css('display', 'none');
         }
     });
+
+    //modal movement
+    $('body').on('mousedown', function (e) {
+        modalMuve(e);
+
+    });
+    $('body').on('mouseup', function (e) {
+        $('body').unbind('mousemove');
+    });
 }
 init();
-actions();

@@ -55,13 +55,13 @@ body {
 .modal__add-task {
     position: absolute;
     left: 50%;
+    top: 20%;
     transform: translateX(-50%);
     width: 35vw;
     height: 45vh;
     background-color: #d8d8d8;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0,0,0,0.5);
-    margin-top:20vh;
 }
 .modal__wrapper {
     position: fixed;
