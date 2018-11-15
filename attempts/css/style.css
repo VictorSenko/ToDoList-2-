@@ -225,18 +225,23 @@ input[type=radio]:checked + label:nth-child(6):before {
 .buttons__wrapper{
     width: 25%;
     display: flex;
-    justify-content:space-between;
+    justify-content:space-around;
     align-items:center;
 }
-.task__button{
-    text-align:center;
-    width: 100%;
+.task__button {
+    box-sizing: border-box;
+    text-align: center;
     line-height: 1.5;
+    width:25%;
     height: 25px;
-    margin-left: 10%;
-    box-shadow: 1px 3px 2px grey;
-    color: #2c2323;
+    color: black;
     padding: 2px;
+    cursor: pointer;
+    box-shadow: 1px 3px 2px grey;
+    opacity: 0.8;
+}
+.task__button:hover{
+    opacity: 1;
 }
 .task__wrapper{
     width: 100%;

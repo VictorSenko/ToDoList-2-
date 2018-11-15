@@ -122,6 +122,21 @@ function actions() {
         localStorage.setItem('task', JSON.stringify(taskArr));
         newTask.taskDrow();
     });
+    $('.main__table').on('mousedown', function (e) {
+        if ($(e.target).hasClass('task__button')) {
+            $(e.target).css({
+                'box-shadow': 'none',
+                'margin': '2px 0 0 0px'
+            });
+        }
+    });
+    $('.main__table').on('mouseup', function (e) {
+        $('.task__button').css({
+            'box-shadow': '1px 3px 2px grey',
+            'margin': '0'
+        });
+
+    });
 }
 
 
