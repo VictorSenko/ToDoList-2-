@@ -45,22 +45,28 @@ class TaskCreator {
         if (this.status === 'curent') {
             item = $('.main__table-curent .task__container');
             buttons = '<div class="buttons__wrapper">' +
+                '<div class="complete-button task__button">Complete</div>'+
                 '<div class="edit-button task__button">Edit</div>' +
-                '<div class="delete-button task__button">Delete</div>' +
-                '<div class="recover-button task__button"">Recover</div></div>';
+                '<div class="delete-button task__button">Delete</div></div>';
         }
-        if (this.status === 'edited') {
+        if (this.status === 'executed') {
             item = $('.main__table-executed .task__container');
+            buttons = '<div class="buttons__wrapper">' +
+                '<div class="edit-button task__button">Edit</div>' +
+                '<div class="delete-button task__button">Delete</div></div>';
         }
 
         if (this.status === 'deleted') {
             item = $('.main__table-deleted .task__container');
+            buttons = '<div class="buttons__wrapper">' +
+                '<div class="recover-button task__button"">Recover</div></div>';
+
         }
 
         item.append('<div class = "task__wrapper"><div class= "main__table-obj">' +
                 '<div class="main__table-task">' + this.name + '</div >' +
                 '<div class="main__table-task">' + this.description + '</div>' +
-            '<div class="main__table-task">' + this.priority + '</div></div>' + buttons+'</div>');
+                '<div class="main__table-task">' + this.priority + '</div></div>' + buttons+'</div>');
     }
 
 }
