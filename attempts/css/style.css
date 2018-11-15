@@ -193,6 +193,7 @@ input[type=radio]:checked + label:nth-child(6):before {
     align-content: center;
     line-height: 3;
     border-radius: 5px;
+    margin-bottom: 10px;
 }
 .main__table-nav-block {
     text-align:center;
@@ -202,11 +203,26 @@ input[type=radio]:checked + label:nth-child(6):before {
     width: 20%;
 }
 .main__table-obj {
+    opacity: 0.6;
     width: 70%;
-    height: 40px;
-    border: 1px solid black;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+.main__table-obj:hover{
+    opacity: 1;
+   
+}
+.main__table-task {
+    width: 40%;
+    text-align: center;
+    line-height: 2.5;
+    background-color: #84adce;
+    margin-left: 5px;
+}
+.main__table-task:nth-child(1){
+    width: 20%;
 }
 
 
