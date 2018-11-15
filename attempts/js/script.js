@@ -1,8 +1,16 @@
 function init() {
+    let taskArr;
+    if (localStorage.getItem('task') !== null) {
+        taskArr = JSON.parse(localStorage.getItem('task'));
+    }
+    else
+        taskArr = [];
     $('.main__table-curent').addClass('main__table-active');
     $('.navigation__curent-task').addClass('navigation-active');
     actions();
+    return taskArr;
 }
+taskArr = init();
 function modalMuve(e) {
     if ($(e.target).hasClass('modal__move')) {
         let leftOffset = e.offsetX;
@@ -21,7 +29,17 @@ function modalMuve(e) {
             }
         });
     }
+}
+function taskDrow() {
 
+}
+class TaskCreator {
+    constructor() {
+        this.name = $('.task__name-input').val();
+        this.description = $('.task__description-input').val();
+        this.priority = $("input:checked").val();
+        this.status = 'curent';
+    }
 }
 function actions() {
     //navigation switcher
@@ -49,5 +67,18 @@ function actions() {
     $('body').on('mouseup', function (e) {
         $('body').unbind('mousemove');
     });
+
+    //create task
+    $('.create__task-button').on('click', function () {
+        let newTask = new TaskCreator();
+        $('.task__name-input').val('');
+        $('.task__description-input').val('');
+        $('.modal__wrapper').css('display', 'none');
+        taskArr.push(newTask);
+        localStorage.setItem('task', JSON.stringify(taskArr));
+        taskDrow();
+        console.log(taskArr);
+    });
 }
-init();
+
+
