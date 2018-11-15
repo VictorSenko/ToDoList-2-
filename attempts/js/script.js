@@ -8,6 +8,7 @@ function init() {
     $('.main__table-curent').addClass('main__table-active');
     $('.navigation__curent-task').addClass('navigation-active');
     actions();
+
     return taskArr;
 }
 taskArr = init();
@@ -40,8 +41,13 @@ class TaskCreator {
     }
     taskDrow() {
         let item;
+        let buttons;
         if (this.status === 'curent') {
             item = $('.main__table-curent .task__container');
+            buttons = '<div class="buttons__wrapper">' +
+                '<div class="edit-button task__button">Edit</div>' +
+                '<div class="delete-button task__button">Delete</div>' +
+                '<div class="recover-button task__button"">Recover</div></div>';
         }
         if (this.status === 'edited') {
             item = $('.main__table-executed .task__container');
@@ -51,10 +57,10 @@ class TaskCreator {
             item = $('.main__table-deleted .task__container');
         }
 
-        item.append('<div class= "main__table-obj">' +
+        item.append('<div class = "task__wrapper"><div class= "main__table-obj">' +
                 '<div class="main__table-task">' + this.name + '</div >' +
                 '<div class="main__table-task">' + this.description + '</div>' +
-                '<div class="main__table-task">' + this.priority + '</div></div>');
+            '<div class="main__table-task">' + this.priority + '</div></div>' + buttons+'</div>');
     }
 
 }

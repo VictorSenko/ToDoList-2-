@@ -207,12 +207,10 @@ input[type=radio]:checked + label:nth-child(6):before {
     width: 70%;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 12px;
     cursor: pointer;
 }
 .main__table-obj:hover{
     opacity: 1;
-   
 }
 .main__table-task {
     width: 40%;
@@ -223,6 +221,27 @@ input[type=radio]:checked + label:nth-child(6):before {
 }
 .main__table-task:nth-child(1){
     width: 20%;
+}
+.buttons__wrapper{
+    width: 25%;
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+}
+.task__button{
+    border: 1px solid black;
+    text-align:center;
+    padding: 0;
+    width: 100%;
+    line-height: 1.5;
+    height: 25px;
+    margin-left: 10%;
+    box-shadow: 1px 3px 2px grey;
+}
+.task__wrapper{
+    width: 100%;
+    display:flex;
+    margin-bottom: 10px;
 }
 
 
