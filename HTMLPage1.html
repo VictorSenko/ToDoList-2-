@@ -24,8 +24,23 @@
 
     <div class="modal__wrapper">
         <div class="modal__add-task">
-            <button class="modal__exit-button">X</button>
-
+            
+            <div class="modal__exit-wrapper">
+                <button class="modal__exit-button">X</button>
+            </div>
+            <div class="modal__fields">
+                <input type="text" placeholder="Name" class="task__name-input task__input-all" />
+                <textarea placeholder="Description" class="task__description-input task__input-all"></textarea>
+                <div class="task__radio task__input-all">
+                    <input type="radio" name="radio" id="low" class="radio" />
+                    <label for="low">low</label>
+                    <input type="radio" name="radio" id="medium" class="radio" />
+                    <label for="medium">medium</label>
+                    <input type="radio" name="radio" id="high" class="radio" />
+                    <label for="high">high</label>
+                </div>
+            </div>
+            <button class="create__task-button">Create Task</button>
         </div>
     </div>
     

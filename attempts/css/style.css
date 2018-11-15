@@ -16,9 +16,6 @@ body {
     display: flex;
     justify-content:space-between;
 }
-.table__wrapper {
-    
-}
 .navigation__item {
     background-color: #a3c9e8;
     display: inline-block;
@@ -43,7 +40,7 @@ body {
 .main__table {
     background-color: #a3c9e8;
     width: 100%;
-    height: 65vh;
+    height: 500px;
     border-radius: 0 0 5px 5px;
     margin-bottom: 20px;
     opacity: 0.8;
@@ -58,7 +55,6 @@ body {
     top: 20%;
     transform: translateX(-50%);
     width: 35vw;
-    height: 45vh;
     background-color: #d8d8d8;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0,0,0,0.5);
@@ -73,9 +69,10 @@ body {
     display: none;
 }
 .open__modal-add {
+
     float: right;
     position: relative;
-    top: -7vh;
+    top:-90px;
     margin-right: 3vw;
 }
 .modal__exit-button {
@@ -83,3 +80,95 @@ body {
     margin-right: 10px;
     
 }
+.modal__exit-wrapper{
+    display:block;
+    width: 100%;
+    height: 20px;
+    margin-bottom: 15%;
+    padding-bottom: 10px;
+    border-bottom:1px solid gray;
+
+}
+.task__input-all {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 25px;
+    border-radius: 5px;
+    padding: 7px;
+    width: 40%;
+    font-family: sans-serif;
+}
+.task__input-all:focus {
+    outline: none;
+    background-color: #d8c7c7;
+}
+.task__description-input {
+    margin-bottom: 30px;
+}
+.task__radio{
+    width: 30%;
+    display:flex;
+    justify-content:space-around;
+}
+.modal__label-wrapper{
+    margin-bottom:5px;
+    display:flex;
+    justify-content:space-between;
+    
+}
+label {
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    padding-left: 25px;
+    margin-right: 15px;
+    text-align:center;
+    margin-bottom:40px;
+}
+.radio{
+    display:none;
+}
+label:before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    position: absolute;
+    left: 50px;
+    bottom: -40px;
+    background-color: #aaa;
+    box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
+    border-radius: 8px;
+}
+label:nth-child(4):before {
+    left: 55px;
+}
+label:nth-child(6):before {
+    left: 20px;
+}
+input[type=radio]:checked + label:before {
+    content: "\2022";
+    color: #3a6d3e;
+    font-size: 30px;
+    text-align: center;
+    line-height: 18px;
+}
+input[type=radio]:checked + label:nth-child(4):before {
+    color: #ceb60d;
+}
+input[type=radio]:checked + label:nth-child(6):before {
+    color: #a75757;
+}
+.create__task-button {
+    margin-left: 70%;
+    background-color: #6fb56f;
+    padding: 7px;
+    margin-bottom: 40px;
+}
+.create__task-button:focus{
+    outline: none;
+}
+
+
+
