@@ -44,7 +44,6 @@ function actions() {
     //modal movement
     
     $('body').on('mousedown', function (e) {
-        console.log(e.target);
         modalMuve(e);
     });
     $('body').on('mouseup', function (e) {

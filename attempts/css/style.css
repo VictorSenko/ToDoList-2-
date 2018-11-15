@@ -98,6 +98,7 @@ body {
     border-bottom:1px solid gray;
 }
 .task__input-all {
+    position:relative;
     display: block;
     margin: 0 auto;
     margin-bottom: 25px;
@@ -105,6 +106,7 @@ body {
     padding: 7px;
     width: 40%;
     font-family: sans-serif;
+    z-index:2;
 }
 .task__input-all:focus {
     outline: none;
@@ -132,6 +134,7 @@ label {
     margin-right: 15px;
     text-align:center;
     margin-bottom:40px;
+    z-index:2;
 }
 .radio{
     display:none;
@@ -148,6 +151,7 @@ label:before {
     background-color: #aaa;
     box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
     border-radius: 8px;
+    z-index:2;
 }
 label:nth-child(4):before {
     left: 55px;
@@ -169,10 +173,12 @@ input[type=radio]:checked + label:nth-child(6):before {
     color: #a75757;
 }
 .create__task-button {
+    position:relative;
     margin-left: 70%;
     background-color: #6fb56f;
     padding: 7px;
     margin-bottom: 40px;
+    z-index:2;
 }
 .create__task-button:focus{
     outline: none;
