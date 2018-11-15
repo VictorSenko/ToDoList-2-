@@ -30,9 +30,7 @@ function modalMuve(e) {
         });
     }
 }
-function taskDrow() {
 
-}
 class TaskCreator {
     constructor() {
         this.name = $('.task__name-input').val();
@@ -40,6 +38,25 @@ class TaskCreator {
         this.priority = $("input:checked").val();
         this.status = 'curent';
     }
+    taskDrow() {
+        let item;
+        if (this.status === 'curent') {
+            item = $('.main__table-curent .task__container');
+        }
+        if (this.status === 'edited') {
+            item = $('.main__table-executed .task__container');
+        }
+
+        if (this.status === 'deleted') {
+            item = $('.main__table-deleted .task__container');
+        }
+
+        item.append('<div class= "main__table-obj">' +
+                '<div class="main__table-task">' + this.name + '</div >' +
+                '<div class="main__table-task">' + this.description + '</div>' +
+                '<div class="main__table-task">' + this.priority + '</div></div>');
+    }
+
 }
 function actions() {
     //navigation switcher
@@ -76,8 +93,8 @@ function actions() {
         $('.modal__wrapper').css('display', 'none');
         taskArr.push(newTask);
         localStorage.setItem('task', JSON.stringify(taskArr));
-        taskDrow();
-        console.log(taskArr);
+        newTask.taskDrow();
+
     });
 }
 

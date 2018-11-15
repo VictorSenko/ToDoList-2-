@@ -183,6 +183,31 @@ input[type=radio]:checked + label:nth-child(6):before {
 .create__task-button:focus{
     outline: none;
 }
+.main__table-nav {
+    width: 70%;
+    background-color: #84adce;
+    height: 10%;
+    opacity: 0.6;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    line-height: 3;
+    border-radius: 5px;
+}
+.main__table-nav-block {
+    text-align:center;
+    width:40%;
+}
+.main__table-nav-block:nth-child(1){
+    width: 20%;
+}
+.main__table-obj {
+    width: 70%;
+    height: 40px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+}
 
 
 
