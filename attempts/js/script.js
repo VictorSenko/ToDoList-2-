@@ -4,16 +4,16 @@ function init() {
     actions();
 }
 function modalMuve(e) {
-    if ($(e.target).hasClass('modal__add-task')) {
+    if ($(e.target).hasClass('modal__move')) {
         let leftOffset = e.offsetX;
         let topOffset = e.offsetY;
         $('body').on('mousemove', function (e) {
 
-            if ($(e.target).hasClass('modal__add-task')) {
+            if ($(e.target).hasClass('modal__move')) {
                 let x = e.pageX - leftOffset;
                 let y = e.pageY - topOffset;
 
-                $(e.target).css({
+                $('.modal__add-task').css({
                     'transform': 'translateX(0)',
                     'left': x + 'px',
                     'top': y + 'px'
@@ -42,9 +42,10 @@ function actions() {
     });
 
     //modal movement
+    
     $('body').on('mousedown', function (e) {
+        console.log(e.target);
         modalMuve(e);
-
     });
     $('body').on('mouseup', function (e) {
         $('body').unbind('mousemove');
