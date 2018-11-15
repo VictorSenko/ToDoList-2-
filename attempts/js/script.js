@@ -1,3 +1,42 @@
+class TaskCreator {
+    constructor(obj) {
+        this.name = obj.name;
+        this.description = obj.description;
+        this.priority = obj.priority;
+        this.status = obj.status;
+    }
+    taskDrow() {
+        let item;
+        let buttons;
+        if (this.status === 'curent') {
+            item = $('.main__table-curent .task__container');
+            buttons = '<div class="buttons__wrapper">' +
+                '<div class="complete-button task__button">Complete</div>' +
+                '<div class="edit-button task__button">Edit</div>' +
+                '<div class="delete-button task__button">Delete</div></div>';
+        }
+        if (this.status === 'executed') {
+            item = $('.main__table-executed .task__container');
+            buttons = '<div class="buttons__wrapper">' +
+                '<div class="edit-button task__button">Edit</div>' +
+                '<div class="delete-button task__button">Delete</div></div>';
+        }
+
+        if (this.status === 'deleted') {
+            item = $('.main__table-deleted .task__container');
+            buttons = '<div class="buttons__wrapper">' +
+                '<div class="recover-button task__button"">Recover</div></div>';
+
+        }
+
+        item.append('<div class = "task__wrapper"><div class= "main__table-obj">' +
+            '<div class="main__table-task">' + this.name + '</div >' +
+            '<div class="main__table-task">' + this.description + '</div>' +
+            '<div class="main__table-task">' + this.priority + '</div></div>' + buttons + '</div>');
+    }
+}
+
+
 function init() {
     let taskArr;
     if (localStorage.getItem('task') !== null) {
@@ -8,7 +47,7 @@ function init() {
     $('.main__table-curent').addClass('main__table-active');
     $('.navigation__curent-task').addClass('navigation-active');
     actions();
-
+    tableDrow(taskArr);
     return taskArr;
 }
 taskArr = init();
@@ -32,43 +71,13 @@ function modalMuve(e) {
     }
 }
 
-class TaskCreator {
-    constructor() {
-        this.name = $('.task__name-input').val();
-        this.description = $('.task__description-input').val();
-        this.priority = $("input:checked").val();
-        this.status = 'curent';
-    }
-    taskDrow() {
-        let item;
-        let buttons;
-        if (this.status === 'curent') {
-            item = $('.main__table-curent .task__container');
-            buttons = '<div class="buttons__wrapper">' +
-                '<div class="complete-button task__button">Complete</div>'+
-                '<div class="edit-button task__button">Edit</div>' +
-                '<div class="delete-button task__button">Delete</div></div>';
-        }
-        if (this.status === 'executed') {
-            item = $('.main__table-executed .task__container');
-            buttons = '<div class="buttons__wrapper">' +
-                '<div class="edit-button task__button">Edit</div>' +
-                '<div class="delete-button task__button">Delete</div></div>';
-        }
 
-        if (this.status === 'deleted') {
-            item = $('.main__table-deleted .task__container');
-            buttons = '<div class="buttons__wrapper">' +
-                '<div class="recover-button task__button"">Recover</div></div>';
 
-        }
-
-        item.append('<div class = "task__wrapper"><div class= "main__table-obj">' +
-                '<div class="main__table-task">' + this.name + '</div >' +
-                '<div class="main__table-task">' + this.description + '</div>' +
-                '<div class="main__table-task">' + this.priority + '</div></div>' + buttons+'</div>');
-    }
-
+function tableDrow(taskArr) {
+    taskArr.map(function (elem) {
+        elem = new TaskCreator(elem);
+        elem.taskDrow();
+    });
 }
 function actions() {
     //navigation switcher
@@ -99,14 +108,19 @@ function actions() {
 
     //create task
     $('.create__task-button').on('click', function () {
-        let newTask = new TaskCreator();
+        let newTask = {
+            name: $('.task__name-input').val(),
+            description: $('.task__description-input').val(),
+            priority: $("input:checked").val(),
+            status: 'curent'
+        };
+        newTask = new TaskCreator(newTask);
         $('.task__name-input').val('');
         $('.task__description-input').val('');
         $('.modal__wrapper').css('display', 'none');
         taskArr.push(newTask);
         localStorage.setItem('task', JSON.stringify(taskArr));
         newTask.taskDrow();
-
     });
 }
 
