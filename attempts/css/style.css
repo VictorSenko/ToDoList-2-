@@ -229,7 +229,6 @@ input[type=radio]:checked + label:nth-child(6):before {
     align-items:center;
 }
 .task__button{
-    border: 1px solid black;
     text-align:center;
     padding: 0;
     width: 100%;
@@ -237,11 +236,25 @@ input[type=radio]:checked + label:nth-child(6):before {
     height: 25px;
     margin-left: 10%;
     box-shadow: 1px 3px 2px grey;
+    color: #2c2323;
+    padding: 2px;
 }
 .task__wrapper{
     width: 100%;
     display:flex;
     margin-bottom: 10px;
+}
+.edit-button{
+    background-color: #d4d53e;
+}
+.complete-button{
+    background-color: #2b9f26;
+}
+.delete-button{
+    background-color: #c23636;
+}
+.recover-button{
+    background-color: #3589c1;
 }
 
 
