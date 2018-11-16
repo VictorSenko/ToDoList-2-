@@ -4,6 +4,7 @@ class TaskCreator {
         this.description = obj.description;
         this.priority = obj.priority;
         this.status = obj.status;
+        this.timeAttr = obj.timeAttr;
     }
     taskDrow() {
         let item;
@@ -29,7 +30,8 @@ class TaskCreator {
 
         }
 
-        item.append('<div class = "task__wrapper"><div class= "main__table-obj">' +
+        item.append('<div class = "task__wrapper"><div class= "main__table-obj" data-time = "' +
+                                                             this.timeAttr + '">' +
             '<div class="main__table-task">' + this.name + '</div >' +
             '<div class="main__table-task">' + this.description + '</div>' +
             '<div class="main__table-task">' + this.priority + '</div></div>' + buttons + '</div>');
@@ -79,6 +81,8 @@ function tableDrow(taskArr) {
         elem.taskDrow();
     });
 }
+
+
 function actions() {
     //navigation switcher
     $('.navigation__item').on('click', function (e) {
@@ -112,7 +116,8 @@ function actions() {
             name: $('.task__name-input').val(),
             description: $('.task__description-input').val(),
             priority: $("input:checked").val(),
-            status: 'curent'
+            status: 'curent',
+            timeAttr: Date.parse(new Date())
         };
         newTask = new TaskCreator(newTask);
         $('.task__name-input').val('');
@@ -128,6 +133,7 @@ function actions() {
                 'box-shadow': 'none',
                 'margin': '2px 0 0 0px'
             });
+            let time = $('.main__table-obj').eq($(e.target).closest($('.task__wrapper')).index()).attr('data-time');
         }
     });
     $('.main__table').on('mouseup', function (e) {
@@ -135,8 +141,38 @@ function actions() {
             'box-shadow': '1px 3px 2px grey',
             'margin': '0'
         });
-
     });
+    $('.main__table').on('click', function (e) {
+        if ($(e.target).hasClass('delete-button')) {
+            let time = $('.main__table-obj').eq($(e.target).closest($('.task__wrapper')).index()).attr('data-time');
+            taskArr.map(function (elem) {
+                if (elem.timeAttr === +time) {
+                    elem.status = 'deleted';
+                    console.log(elem);
+                }
+            });
+        }
+        if ($(e.target).hasClass('complete-button')) {
+            let time = $('.main__table-obj').eq($(e.target).closest($('.task__wrapper')).index()).attr('data-time');
+            taskArr.map(function (elem) {
+                if (elem.timeAttr === +time) {
+                    elem.status = 'executed';
+                    console.log(elem);
+                }
+            });
+        }
+        if ($(e.target).hasClass('edit-button')) {
+            let time = $('.main__table-obj').eq($(e.target).closest($('.task__wrapper')).index()).attr('data-time');
+            taskArr.map(function (elem) {
+                if (elem.timeAttr === +time) {
+                    elem.status = 'edited';
+                    console.log(elem);
+                }
+            });
+        }
+    });
+
 }
+
 
 
