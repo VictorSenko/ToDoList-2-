@@ -127,6 +127,7 @@ function actions() {
         localStorage.setItem('task', JSON.stringify(taskArr));
         newTask.taskDrow();
     });
+    //buttons style
     $('.main__table').on('mousedown', function (e) {
         if ($(e.target).hasClass('task__button')) {
             $(e.target).css({
@@ -142,13 +143,13 @@ function actions() {
             'margin': '0'
         });
     });
+    //buttons onclick
     $('.main__table').on('click', function (e) {
         if ($(e.target).hasClass('delete-button')) {
             let time = $('.main__table-obj').eq($(e.target).closest($('.task__wrapper')).index()).attr('data-time');
             taskArr.map(function (elem) {
                 if (elem.timeAttr === +time) {
                     elem.status = 'deleted';
-                    console.log(elem);
                 }
             });
         }
@@ -157,19 +158,25 @@ function actions() {
             taskArr.map(function (elem) {
                 if (elem.timeAttr === +time) {
                     elem.status = 'executed';
-                    console.log(elem);
                 }
             });
         }
         if ($(e.target).hasClass('edit-button')) {
             let time = $('.main__table-obj').eq($(e.target).closest($('.task__wrapper')).index()).attr('data-time');
+            console.log('editFunction');
+        }
+        if ($(e.target).hasClass('recover-button')) {
+            let time = $('.main__table-obj').eq($(e.target).closest($('.task__wrapper')).index()-1).attr('data-time');
             taskArr.map(function (elem) {
                 if (elem.timeAttr === +time) {
-                    elem.status = 'edited';
-                    console.log(elem);
+                    elem.status = 'curent';
                 }
             });
+            
         }
+        $('.task__container').empty();
+        tableDrow(taskArr);
+        localStorage.setItem('task', JSON.stringify(taskArr));
     });
 
 }
