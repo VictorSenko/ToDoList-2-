@@ -141,6 +141,15 @@ function validate() {
         return true;
     }
 }
+function taskChange(status, time) {
+    taskArr.map(function (elem, i) {
+        if (elem.timeAttr === +time) {
+            elem.status = status;
+            let item = taskArr.splice(i, 1);
+            taskArr.push(item[0]);
+        }
+    });
+}
 function actions() {
 
     //navigation switcher
@@ -206,19 +215,11 @@ function actions() {
         let time = $(e.target.parentElement.previousSibling).attr('data-time');
         //delete
         if ($(e.target).hasClass('delete-button')) {
-            taskArr.map(function (elem) {
-                if (elem.timeAttr === +time) {
-                    elem.status = 'deleted';
-                }
-            });
+            taskChange('deleted',time);
         }
         //complete
         if ($(e.target).hasClass('complete-button')) {
-            taskArr.map(function (elem) {
-                if (elem.timeAttr === +time) {
-                    elem.status = 'executed';
-                }
-            });
+            taskChange('executed', time);
         }
         //edit
         if ($(e.target).hasClass('edit-button')) {
@@ -230,18 +231,22 @@ function actions() {
                 //add eventlistener on edit task button
                 $('.edit__task-button').on('click', function () {
                     if (validate()) {
-                        taskArr.map(function (elem) {
+                        taskArr.map(function (elem,i) {
                             if (elem.timeAttr === +time) {
                                 editableTask = elem;
+                                let item = taskArr.splice(i, 1);
+                                taskArr.push(item[0]);
                             }
                         });
                         editTask(editableTask);
                     }
                 });
             }
-            taskArr.map(function (elem) {
+            taskArr.map(function (elem,i) {
                 if (elem.timeAttr === +time) {
                     editableTask = elem;
+                    let item = taskArr.splice(i, 1);
+                    taskArr.push(item[0]);
                 }
             });
             $('.task__name-input').val(editableTask.name);
@@ -255,11 +260,7 @@ function actions() {
 
         //recover
         if ($(e.target).hasClass('recover-button')) {
-            taskArr.map(function (elem) {
-                if (elem.timeAttr === +time) {
-                    elem.status = 'curent';
-                }
-            });
+            taskChange('curent', time);
         }
         
         tableDrow(taskArr);
