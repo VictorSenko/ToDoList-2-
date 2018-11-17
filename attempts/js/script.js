@@ -37,7 +37,6 @@ class TaskCreator {
             '<div class="main__table-task">' + this.priority + '</div></div>' + buttons + '</div>');
     }
 }
-
 function init() {
     let taskArr;
     if (localStorage.getItem('task') !== null) {
@@ -50,11 +49,43 @@ function init() {
     actions();
     tableDrow(taskArr);
     return taskArr;
-
+   
 }
-
 taskArr = init();
+function createTask() {
+    let newTask = {
+        name: $('.task__name-input').val(),
+        description: $('.task__description-input').val(),
+        priority: $("input:checked").val(),
+        status: 'curent',
+        timeAttr: Date.parse(new Date())
+    };
+    newTask = new TaskCreator(newTask);
+    $('.modal__wrapper').css('display', 'none');
+    taskArr.push(newTask);
+    localStorage.setItem('task', JSON.stringify(taskArr));
+    newTask.taskDrow();
+}
+function editTask(editableTask) {
+    
+    let newTask = {
+        name: $('.task__name-input').val(),
+        description: $('.task__description-input').val(),
+        priority: $("input:checked").val(),
+        status: editableTask.status,
+        timeAttr: editableTask.timeAttr
+    };
+    newTask = new TaskCreator(newTask);
+    $('.modal__wrapper').css('display', 'none');
 
+    for (let i = 0, len = taskArr.length; i < len; i++) {
+        if (taskArr[i].timeAttr === newTask.timeAttr) {
+            taskArr[i] = newTask;
+        }
+    }
+    localStorage.setItem('task', JSON.stringify(taskArr));
+    tableDrow(taskArr);
+}
 function modalMuve(e) {
     if ($(e.target).hasClass('modal__move')) {
         let leftOffset = e.offsetX;
@@ -74,7 +105,6 @@ function modalMuve(e) {
         });
     }
 }
-
 function tableDrow(taskArr) {
     $('.task__container').empty();
     taskArr.map(function (elem) {
@@ -82,7 +112,35 @@ function tableDrow(taskArr) {
         elem.taskDrow();
     });
 }
+function validateStylesDefault() {
+    $('.modal__add-task').css('border', 'none');
+    $('.task__name-input').removeClass('input_border');
+    $('.task__name-input').attr('placeholder', 'Name');
+    $('span.validation-warning').remove();
+    $('span.validation-checkbox-warning').remove();
+}
+function validate() {
 
+    validateStylesDefault();
+
+    if ($('.task__name-input').val().length < 1) {
+        $('.task__name-input').css({
+            'border': '2px solid #b61c1c'
+        });
+        $('.task__name-input').attr('placeholder', 'enter the name');
+        return false;
+    }
+    else if ($('.task__name-input').val().length < 4) {
+        $('.task__name-input').addClass('input_border');
+        $('.task__name-input').after('<span class="validation-warning">Task name is too short</span>');
+        return false;
+    } else if ($("input:radio:checked").length < 1) {
+        $('.task__name-input').after('<span class="validation-checkbox-warning">select task priority</span>');
+        $('.modal__add-task').css('border', '1px solid red');
+    } else {
+        return true;
+    }
+}
 function actions() {
 
     //navigation switcher
@@ -122,18 +180,8 @@ function actions() {
 
     //create task
     $('.create__task-button').on('click', function () {
-        let newTask = {
-            name: $('.task__name-input').val(),
-            description: $('.task__description-input').val(),
-            priority: $("input:checked").val(),
-            status: 'curent',
-            timeAttr: Date.parse(new Date())
-        };
-        newTask = new TaskCreator(newTask);
-        $('.modal__wrapper').css('display', 'none');
-        taskArr.push(newTask);
-        localStorage.setItem('task', JSON.stringify(taskArr));
-        newTask.taskDrow();
+        if (validate())
+            createTask();
     });
 
     //buttons style
@@ -181,28 +229,14 @@ function actions() {
                 $('.modal__add-task').append('<button class="edit__task-button">Edit Task</button>');
                 //add eventlistener on edit task button
                 $('.edit__task-button').on('click', function () {
-                    taskArr.map(function (elem) {
-                        if (elem.timeAttr === +time) {
-                            editableTask = elem;
-                        }
-                    });
-                    let newTask = {
-                        name: $('.task__name-input').val(),
-                        description: $('.task__description-input').val(),
-                        priority: $("input:checked").val(),
-                        status: editableTask.status,
-                        timeAttr: editableTask.timeAttr
-                    };
-                    newTask = new TaskCreator(newTask);
-                    $('.modal__wrapper').css('display', 'none');
-
-                    for (let i = 0, len = taskArr.length; i < len; i++) {
-                        if (taskArr[i].timeAttr === newTask.timeAttr) {
-                            taskArr[i] = newTask;
-                        }
+                    if (validate()) {
+                        taskArr.map(function (elem) {
+                            if (elem.timeAttr === +time) {
+                                editableTask = elem;
+                            }
+                        });
+                        editTask(editableTask);
                     }
-                    localStorage.setItem('task', JSON.stringify(taskArr));
-                    tableDrow(taskArr);
                 });
             }
             taskArr.map(function (elem) {
@@ -230,6 +264,9 @@ function actions() {
         
         tableDrow(taskArr);
         localStorage.setItem('task', JSON.stringify(taskArr));
+    });
+    $('.task__name-input').on('keypress', function() {
+        validateStylesDefault();
     });
 }
 

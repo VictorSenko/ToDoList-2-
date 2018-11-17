@@ -50,6 +50,7 @@ body {
     display:block;
 }
 .modal__add-task {
+    box-sizing:border-box;
     position: relative;
     left: 50vw;
     top: 20%;
@@ -272,4 +273,19 @@ input[type=radio]:checked + label:nth-child(6):before {
 }
 .recover-button{
     background-color: #3589c1;
+}
+.validation-warning {
+    position: absolute;
+    top: 25%;
+    left: 29%;
+    color: #b61c1c;
+}
+.validation-checkbox-warning {
+    font-size: 1.2rem;
+    position: absolute;
+    top: 55%; left: 35%;
+    color: #b61c1c;
+}
+.input_border {
+    border: 2px solid #b61c1c;
 }
