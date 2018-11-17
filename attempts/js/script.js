@@ -213,6 +213,9 @@ function actions() {
     //buttons onclick
     $('.main__table').on('click', function (e) {
         let time = $(e.target.parentElement.previousSibling).attr('data-time');
+        if ($(e.target).hasClass('main__table-task')) {
+            time = $(e.target.parentElement).attr('data-time');
+        }
         //delete
         if ($(e.target).hasClass('delete-button')) {
             taskChange('deleted',time);
@@ -222,7 +225,7 @@ function actions() {
             taskChange('executed', time);
         }
         //edit
-        if ($(e.target).hasClass('edit-button')) {
+        if ($(e.target).hasClass('edit-button') || $(e.target).hasClass('main__table-task')) {
             let editableTask;
             $('.modal__wrapper').css('display', 'block');
             if ($('.modal__add-task').children().hasClass('create__task-button')) {
@@ -234,9 +237,8 @@ function actions() {
                         taskArr.map(function (elem,i) {
                             if (elem.timeAttr === +time) {
                                 editableTask = elem;
-                                let item = taskArr.splice(i, 1);
-                                taskArr.push(item[0]);
                             }
+                            console.log(editableTask);
                         });
                         editTask(editableTask);
                     }
@@ -245,8 +247,6 @@ function actions() {
             taskArr.map(function (elem,i) {
                 if (elem.timeAttr === +time) {
                     editableTask = elem;
-                    let item = taskArr.splice(i, 1);
-                    taskArr.push(item[0]);
                 }
             });
             $('.task__name-input').val(editableTask.name);
