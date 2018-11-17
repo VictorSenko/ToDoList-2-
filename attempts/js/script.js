@@ -145,8 +145,8 @@ function actions() {
     });
     //buttons onclick
     $('.main__table').on('click', function (e) {
+        let time = $(e.target.parentElement.previousSibling).attr('data-time');
         if ($(e.target).hasClass('delete-button')) {
-            let time = $('.main__table-obj').eq($(e.target).closest($('.task__wrapper')).index()).attr('data-time');
             taskArr.map(function (elem) {
                 if (elem.timeAttr === +time) {
                     elem.status = 'deleted';
@@ -154,7 +154,6 @@ function actions() {
             });
         }
         if ($(e.target).hasClass('complete-button')) {
-            let time = $('.main__table-obj').eq($(e.target).closest($('.task__wrapper')).index()).attr('data-time');
             taskArr.map(function (elem) {
                 if (elem.timeAttr === +time) {
                     elem.status = 'executed';
@@ -162,11 +161,9 @@ function actions() {
             });
         }
         if ($(e.target).hasClass('edit-button')) {
-            let time = $('.main__table-obj').eq($(e.target).closest($('.task__wrapper')).index()).attr('data-time');
             console.log('editFunction');
         }
         if ($(e.target).hasClass('recover-button')) {
-            let time = $('.main__table-obj').eq($(e.target).closest($('.task__wrapper')).index()-1).attr('data-time');
             taskArr.map(function (elem) {
                 if (elem.timeAttr === +time) {
                     elem.status = 'curent';
