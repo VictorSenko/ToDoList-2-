@@ -38,7 +38,6 @@ class TaskCreator {
     }
 }
 
-
 function init() {
     let taskArr;
     if (localStorage.getItem('task') !== null) {
@@ -51,8 +50,11 @@ function init() {
     actions();
     tableDrow(taskArr);
     return taskArr;
+
 }
+
 taskArr = init();
+
 function modalMuve(e) {
     if ($(e.target).hasClass('modal__move')) {
         let leftOffset = e.offsetX;
@@ -73,8 +75,6 @@ function modalMuve(e) {
     }
 }
 
-
-
 function tableDrow(taskArr) {
     taskArr.map(function (elem) {
         elem = new TaskCreator(elem);
@@ -82,8 +82,8 @@ function tableDrow(taskArr) {
     });
 }
 
-
 function actions() {
+
     //navigation switcher
     $('.navigation__item').on('click', function (e) {
         $('.main__table').removeClass('main__table-active');
@@ -91,9 +91,19 @@ function actions() {
         $('.navigation__item').eq($(e.target).index()).addClass('navigation-active');
         $('.main__table').eq($(e.target).index()).addClass('main__table-active');
     });
+
     //Add Task button
     $('.open__modal-add').on('click', function () {
-        $('.modal__wrapper').css('display','block');
+        $('.task__name-input').val('');
+        $('.task__description-input').val('');
+        $('.radio').each(function () {
+            this.checked = false;
+        });
+        $('.modal__wrapper').css('display', 'block');
+        if ($('.modal__add-task').children().hasClass('edit__task-button')) {
+            $('.modal__add-task').children('.edit__task-button').remove();
+            $('.modal__add-task').append('<button class="create__task-button">Create Task</button>');
+        }
     });
     $('body').on('click', function (e) {
         if ($(e.target).hasClass('modal__exit-button') || $(e.target).hasClass('modal__wrapper')) {
@@ -102,7 +112,6 @@ function actions() {
     });
 
     //modal movement
-    
     $('body').on('mousedown', function (e) {
         modalMuve(e);
     });
@@ -120,13 +129,12 @@ function actions() {
             timeAttr: Date.parse(new Date())
         };
         newTask = new TaskCreator(newTask);
-        $('.task__name-input').val('');
-        $('.task__description-input').val('');
         $('.modal__wrapper').css('display', 'none');
         taskArr.push(newTask);
         localStorage.setItem('task', JSON.stringify(taskArr));
         newTask.taskDrow();
     });
+
     //buttons style
     $('.main__table').on('mousedown', function (e) {
         if ($(e.target).hasClass('task__button')) {
@@ -143,9 +151,11 @@ function actions() {
             'margin': '0'
         });
     });
+
     //buttons onclick
     $('.main__table').on('click', function (e) {
         let time = $(e.target.parentElement.previousSibling).attr('data-time');
+        //delete
         if ($(e.target).hasClass('delete-button')) {
             taskArr.map(function (elem) {
                 if (elem.timeAttr === +time) {
@@ -153,6 +163,7 @@ function actions() {
                 }
             });
         }
+        //complete
         if ($(e.target).hasClass('complete-button')) {
             taskArr.map(function (elem) {
                 if (elem.timeAttr === +time) {
@@ -160,22 +171,41 @@ function actions() {
                 }
             });
         }
+        //edit
         if ($(e.target).hasClass('edit-button')) {
-            console.log('editFunction');
+            let editableTask;
+            $('.modal__wrapper').css('display', 'block');
+            if ($('.modal__add-task').children().hasClass('create__task-button')) {
+                $('.modal__add-task').children('.create__task-button').remove();
+                $('.modal__add-task').append('<button class="edit__task-button">Edit Task</button>');
+                //add eventlistener on edit task button
+            }
+            taskArr.map(function (elem) {
+                if (elem.timeAttr === +time) {
+                    editableTask = elem;
+                }
+            });
+            $('.task__name-input').val(editableTask.name);
+            $('.task__description-input').val(editableTask.description);
+            $('.radio').each(function (i, elem) {
+                if (elem.value === editableTask.priority) {
+                    elem.checked = true;
+                }
+            });
         }
+
+        //recover
         if ($(e.target).hasClass('recover-button')) {
             taskArr.map(function (elem) {
                 if (elem.timeAttr === +time) {
                     elem.status = 'curent';
                 }
             });
-            
         }
         $('.task__container').empty();
         tableDrow(taskArr);
         localStorage.setItem('task', JSON.stringify(taskArr));
     });
-
 }
 
 

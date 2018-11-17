@@ -179,6 +179,19 @@ input[type=radio]:checked + label:nth-child(6):before {
     padding: 7px;
     margin-bottom: 40px;
     z-index:2;
+    cursor: pointer;
+}
+.edit__task-button {
+    position: relative;
+    margin-left: 70%;
+    background-color: #b8ba17;
+    padding: 7px;
+    margin-bottom: 40px;
+    z-index: 2;
+    cursor: pointer;
+}
+.edit__task-button:focus{
+    outline: none;
 }
 .create__task-button:focus{
     outline: none;
@@ -260,6 +273,3 @@ input[type=radio]:checked + label:nth-child(6):before {
 .recover-button{
     background-color: #3589c1;
 }
-
-
-
