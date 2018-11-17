@@ -151,6 +151,9 @@ function taskChange(status, time) {
     });
 }
 function actions() {
+    let nameOrder = true;
+    let descOrder = true;
+    let priorOrder = true;
 
     //navigation switcher
     $('.navigation__item').on('click', function (e) {
@@ -266,8 +269,43 @@ function actions() {
         tableDrow(taskArr);
         localStorage.setItem('task', JSON.stringify(taskArr));
     });
+    //default styles on keypress modal
     $('.task__name-input').on('keypress', function() {
         validateStylesDefault();
+    });
+    //sort
+    
+    $('.main__table-nav-block').on('click', function (e) {
+        if ($(e.target).hasClass('main__table-nav-name')) {
+            taskArr.sort(function (objA, objB) {
+                let a = objA.name.toUpperCase();
+                let b = objB.name.toUpperCase();
+                return nameOrder ? 1 * (a > b ? 1 : -1) : -1 * (a > b ? 1 : -1);
+            });
+            nameOrder = !nameOrder;
+        }
+        if ($(e.target).hasClass('main__table-nav-description')) {
+            taskArr.sort(function (objA, objB) {
+                let a = objA.description.toUpperCase();
+                let b = objB.description.toUpperCase();
+                return descOrder ? 1 * (a > b ? 1 : -1) : -1 * (a > b ? 1 : -1);
+            });
+            descOrder = !descOrder;
+        }
+        if ($(e.target).hasClass('main__table-nav-priority')) {
+            taskArr.sort(function (objA, objB) {
+                
+                let a = objA.priority;
+                let b = objB.priority;
+
+                a === 'low' ? a = 1 : a === 'medium' ? a = 2 : a = 3;
+                b === 'low' ? b = 1 : b === 'medium' ? b = 2 : b = 3;
+                return priorOrder ? 1 * (a > b ? 1 : -1) : -1 * (a > b ? 1 : -1);
+            });
+            priorOrder = !priorOrder;
+        }
+        tableDrow(taskArr);
+        localStorage.setItem('task', JSON.stringify(taskArr));
     });
 }
 

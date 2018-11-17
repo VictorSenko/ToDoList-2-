@@ -199,9 +199,7 @@ input[type=radio]:checked + label:nth-child(6):before {
 }
 .main__table-nav {
     width: 70%;
-    background-color: #84adce;
     height: 10%;
-    opacity: 0.6;
     display: flex;
     justify-content: space-between;
     align-content: center;
@@ -210,8 +208,16 @@ input[type=radio]:checked + label:nth-child(6):before {
     margin-bottom: 10px;
 }
 .main__table-nav-block {
-    text-align:center;
-    width:40%;
+    margin-left:5px;
+    background-color: #7799b5;
+    text-align: center;
+    width: 40%;
+    cursor: pointer;
+    opacity: 0.6;
+    color: black;
+}
+.main__table-nav-block:hover{
+    opacity: 1;
 }
 .main__table-nav-block:nth-child(1){
     width: 20%;
