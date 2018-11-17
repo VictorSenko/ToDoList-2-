@@ -76,6 +76,7 @@ function modalMuve(e) {
 }
 
 function tableDrow(taskArr) {
+    $('.task__container').empty();
     taskArr.map(function (elem) {
         elem = new TaskCreator(elem);
         elem.taskDrow();
@@ -179,6 +180,30 @@ function actions() {
                 $('.modal__add-task').children('.create__task-button').remove();
                 $('.modal__add-task').append('<button class="edit__task-button">Edit Task</button>');
                 //add eventlistener on edit task button
+                $('.edit__task-button').on('click', function () {
+                    taskArr.map(function (elem) {
+                        if (elem.timeAttr === +time) {
+                            editableTask = elem;
+                        }
+                    });
+                    let newTask = {
+                        name: $('.task__name-input').val(),
+                        description: $('.task__description-input').val(),
+                        priority: $("input:checked").val(),
+                        status: editableTask.status,
+                        timeAttr: editableTask.timeAttr
+                    };
+                    newTask = new TaskCreator(newTask);
+                    $('.modal__wrapper').css('display', 'none');
+
+                    for (let i = 0, len = taskArr.length; i < len; i++) {
+                        if (taskArr[i].timeAttr === newTask.timeAttr) {
+                            taskArr[i] = newTask;
+                        }
+                    }
+                    localStorage.setItem('task', JSON.stringify(taskArr));
+                    tableDrow(taskArr);
+                });
             }
             taskArr.map(function (elem) {
                 if (elem.timeAttr === +time) {
@@ -202,7 +227,7 @@ function actions() {
                 }
             });
         }
-        $('.task__container').empty();
+        
         tableDrow(taskArr);
         localStorage.setItem('task', JSON.stringify(taskArr));
     });
